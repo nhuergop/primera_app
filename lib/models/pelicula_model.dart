@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Pelicula {
@@ -60,7 +59,7 @@ class Pelicula {
 
   ImageProvider getBackDropImg() {
     if (backdropPath == null) {
-      return const AssetImage('assets/images/sin-imagen.png');
+      return const AssetImage('assets/images/no-image.png');
     } else {
       return NetworkImage('https://image.tmdb.org/t/p/w500/$backdropPath');
     }

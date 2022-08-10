@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../models/actor_model.dart';
+import '../models/cast_model.dart';
 
 class ActorProvider {
   String _apiKey =
@@ -9,17 +9,33 @@ class ActorProvider {
   String _language = 'es-ES';
   String _url = 'api.themoviedb.org';
 
-  Future<Actores> getActor() async {
+  Future<List<Cast>> getActores(
+    final int movie_id,
+  ) async {
     // Uri() genera url
     // pasar protocolo, dominio, queries '?'
     // tenes que instalar libreria http en pub.yaml
     // buscala como http flutter, la 2da o 3era
-    final Uri url = Uri.https(
-        _url, '3/movie/people', {'api_key': _apiKey, 'language': _language});
+    final Uri url = Uri.https(_url, '3/movie/${movie_id}/credits',
+        {'api_key': _apiKey, 'language': _language});
 
     final respuesta = await http.get(url);
     final decodedData = json.decode(respuesta.body);
-    final actores = Actores.fromJsonList(decodedData['results']);
-    return actores;
+    final actores_list = Crew.fromJsonList(decodedData['cast']);
+    return actores_list.actores;
+  }
+
+  Future<CastImage> getActorImage(final int actor_id) async {
+    // Uri() genera url
+    // pasar protocolo, dominio, queries '?'
+    // tenes que instalar libreria http en pub.yaml
+    // buscala como http flutter, la 2da o 3era
+    final Uri url = Uri.https(_url, '3/people/${actor_id}/images',
+        {'api_key': _apiKey, 'language': _language});
+
+    final respuesta = await http.get(url);
+    final decodedData = json.decode(respuesta.body);
+    final actores_images = CastImage.fromJsonMap(decodedData['profiles']);
+    return actores_images;
   }
 }
