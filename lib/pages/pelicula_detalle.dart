@@ -47,7 +47,7 @@ class PeliculaDetalle extends StatelessWidget {
       future: actorProvider.getActores(pelicula.id),
       builder: (BuildContext context, AsyncSnapshot<List<Cast>> snapshot) {
         if (snapshot.hasData) {
-          return CastSwiper(castInfo: snapshot.data!);
+          return CastSwiper(actores: snapshot.data!);
         } else {
           return const SizedBox(
               height: 500.0, child: Center(child: CircularProgressIndicator()));

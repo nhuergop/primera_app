@@ -1,38 +1,66 @@
-import 'package:clase_3/providers/actor_provider.dart';
-import 'package:clase_3/widgets/cast_card.dart';
-import 'package:flutter/material.dart';
+import 'dart:math';
+
+import 'package:clase_3/models/actor_model.dart';
 import 'package:clase_3/models/cast_model.dart';
+import 'package:clase_3/models/pelicula_model.dart';
+import 'package:clase_3/pages/actor_detalle.dart';
+import 'package:clase_3/pages/pelicula_detalle.dart';
+import 'package:clase_3/providers/cast_provider.dart';
+import 'package:clase_3/providers/peliculas_provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:clase_3/pages/actor_detalle.dart';
+import 'package:clase_3/models/actor_model.dart';
 
 class CastSwiper extends StatelessWidget {
-  late final List<Cast> castInfo;
-  late final actorImage = ActorProvider();
+  final List<Cast> actores;
 
-  CastSwiper({Key? key, required this.castInfo}) : super(key: key);
+  CastSwiper({Key? key, required this.actores}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: castInfo.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Center(child: Text(castInfo[index].name));
-      },
-    );
-  }
-
-  Widget _castImage(BuildContext context, int id) {
-    return FutureBuilder(
-      future: actorImage.getActorImage(id),
-      builder: (BuildContext context, AsyncSnapshot<CastImage> snapshot) {
-        if (snapshot.hasData) {
-          return CastCard(
-            castImage: snapshot.data!,
-          );
-        } else {
-          return const SizedBox(
-              height: 500.0, child: Center(child: CircularProgressIndicator()));
-        }
-      },
+    return Container(
+      height: 300,
+      child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: actores.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
+              children: [
+                SizedBox(
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => ActorDetalle(
+                                actor_id: actores[index].id,
+                              ),
+                            ),
+                          );
+                        },
+                        child: FadeInImage(
+                            placeholder:
+                                const AssetImage("assets/images/no-image.png"),
+                            fit: BoxFit.cover,
+                            width: 150,
+                            image: actores[index % actores.length]
+                                .getActorImage()),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(actores[index % actores.length].name),
+                Text(actores[index % actores.length].originalName)
+              ],
+            );
+          }),
     );
   }
 }

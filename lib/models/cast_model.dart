@@ -7,7 +7,7 @@ class Cast {
   late String knownForDepartment;
   late String name;
   late String originalName;
-  late int popularity;
+  late double popularity;
   String? profilePath;
   late int castId;
   late String character;
@@ -32,7 +32,7 @@ class Cast {
     adult = json['adult'];
     gender = json['gender'];
     id = json['id'];
-    knownForDepartment = json['knwon_for_department'];
+    knownForDepartment = json['known_for_department'];
     name = json['name'];
     originalName = json['original_name'];
     popularity = json['popularity'];
@@ -42,6 +42,14 @@ class Cast {
     creditId = json['credit_id'];
     order = json['order'];
   } // Cast
+
+  ImageProvider getActorImage() {
+    if (profilePath == null) {
+      return const AssetImage('assets/images/no-image.png');
+    } else {
+      return NetworkImage('https://image.tmdb.org/t/p/w500/$profilePath');
+    }
+  }
 }
 
 class Crew {
@@ -51,24 +59,6 @@ class Crew {
     for (var actor in jsonList) {
       final Cast actor_resultado = Cast.fromJsonMap(actor);
       actores.add(actor_resultado);
-    }
-  }
-}
-
-class CastImage {
-  late String filePath;
-
-  CastImage({required this.filePath});
-
-  CastImage.fromJsonMap(Map<String, dynamic> json) {
-    filePath = json['file_path'];
-  }
-
-  ImageProvider getActorImg() {
-    if (filePath == null) {
-      return const AssetImage('assets/images/no-image.jpg');
-    } else {
-      return NetworkImage('https://image.tmdb.org/t/p/w500/$filePath');
     }
   }
 }

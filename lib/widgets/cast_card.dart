@@ -12,6 +12,8 @@ class CastCard extends StatelessWidget {
     ImageProvider actorImage = castImage.getActorImg();
 
     return Container(
+      height: 100,
+      width: 100,
       child: Image(image: actorImage),
     );
   }
