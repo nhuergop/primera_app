@@ -14,15 +14,18 @@ class ActorDetalle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ActorFuture(context);
+    return _ActorFuture(
+        context); // el build de ActorDetalle devuelve la funcion privada de _ActorFuture, que devuelve un FutureBuilder.
   }
 
   Widget _ActorFuture(BuildContext context) {
     return FutureBuilder(
-      future: actorProvider.getActorData(actor_id),
+      future: actorProvider.getActorData(actor_id), // llama a getActorData().
       builder: (BuildContext context, AsyncSnapshot<Actor> snapshot) {
         if (snapshot.hasData) {
-          return actorListView(actorData: snapshot.data!);
+          return actorListView(
+              actorData: snapshot
+                  .data!); // retorna actorListView, que recibe la data del resultado Future de future.
         } else {
           return const SizedBox(
               height: 500.0, child: Center(child: CircularProgressIndicator()));

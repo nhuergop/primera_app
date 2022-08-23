@@ -59,7 +59,7 @@ class Pelicula {
 
   ImageProvider getBackDropImg() {
     if (backdropPath == null) {
-      return const AssetImage('assets/images/no-image.png');
+      return const AssetImage('assets/images/no-image.jpg');
     } else {
       return NetworkImage('https://image.tmdb.org/t/p/w500/$backdropPath');
     }

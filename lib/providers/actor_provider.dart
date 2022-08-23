@@ -20,6 +20,10 @@ class ActorProvider {
     final Uri url = Uri.https(_url, '3/movie/${movie_id}/credits',
         {'api_key': _apiKey, 'language': _language});
 
+    /* Hago un GET request del url armado.
+    json.decode toma el cuerpo de la respuesta.
+    Y creo iterativamente la lista de objetos Cast que va a usar CastSwiper con la key 'cast'.
+    Y la retorno. */
     final respuesta = await http.get(url);
     final decodedData = json.decode(respuesta.body);
     final actores_list = Crew.fromJsonList(decodedData['cast']);
@@ -37,7 +41,8 @@ class ActorProvider {
 
     final respuesta = await http.get(url);
     final decodedData = json.decode(respuesta.body);
-    final movie_actor = Actor.fromJsonMap(decodedData);
+    final movie_actor =
+        Actor.fromJsonMap(decodedData); // Solo necesito devolver un actor
     return movie_actor;
   }
 }

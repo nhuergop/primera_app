@@ -34,23 +34,25 @@ class Actor {
 
   Actor.fromJsonMap(Map<String, dynamic> json) {
     birthday = json['birthday'];
-    //knownForDepartment = json['known_for_department'];
+    knownForDepartment = json['known_for_department']; //
     deathday = json['deathday'];
     id = json['id'];
     name = json['name'];
-    //alsoKnownAs = json['also_known_as'];
+    // alsoKnownAs = json['also_known_as']; // ¿Por qué no funciona?
     gender = json['gender'];
     biography = json['biography'];
-    // popularity = json['popularity'] / 1;
-    // placeOfBirth = json['place_of_birth'];
+    popularity =
+        json['popularity'] / 1; // divido por 1 para que me lo haga entero
+    placeOfBirth = json['place_of_birth']; //
     profilePath = json['profile_path'];
-    // adult = json['adult'];
-    // imdbId = json['imdb_id'];
-    //homepage = json['homepage'];
+    adult = json['adult']; //
+    imdbId = json['imdb_id']; //
+    homepage = json['homepage']; //
   }
+
   ImageProvider getPicture() {
     if (profilePath == null) {
-      return const AssetImage('assets/images/no-image.png');
+      return const AssetImage('assets/images/no-image.jpg');
     } else {
       return NetworkImage('https://image.tmdb.org/t/p/w500/$profilePath');
     }

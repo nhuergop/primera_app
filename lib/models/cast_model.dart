@@ -45,7 +45,7 @@ class Cast {
 
   ImageProvider getActorImage() {
     if (profilePath == null) {
-      return const AssetImage('assets/images/no-image.png');
+      return const AssetImage('assets/images/no-image.jpg');
     } else {
       return NetworkImage('https://image.tmdb.org/t/p/w500/$profilePath');
     }
@@ -55,6 +55,8 @@ class Cast {
 class Crew {
   List<Cast> actores = [];
 
+  /* Crew.fromJsonList recibe la lista json de actores.
+    loopeo por el json y en cada iteración creo un nuevo objeto Cast. */
   Crew.fromJsonList(List<dynamic> jsonList) {
     for (var actor in jsonList) {
       final Cast actor_resultado = Cast.fromJsonMap(actor);

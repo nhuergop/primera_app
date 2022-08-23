@@ -17,6 +17,8 @@ class CastSwiper extends StatelessWidget {
 
   CastSwiper({Key? key, required this.actores}) : super(key: key);
 
+  /* CastSwiper recibe la lista de objetos Cast.
+  Y ubica la data en cada campo, todo dentro de una ListView.builder. */
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,11 +37,13 @@ class CastSwiper extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: GestureDetector(
+                        // si toco la imagen, me lleva al detalle del actor.
                         onTap: () {
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
                               builder: (context) => ActorDetalle(
+                                // me lleva a ActorDetalle, que recibe el id del actor.
                                 actor_id: actores[index].id,
                               ),
                             ),
@@ -47,17 +51,17 @@ class CastSwiper extends StatelessWidget {
                         },
                         child: FadeInImage(
                             placeholder:
-                                const AssetImage("assets/images/no-image.png"),
+                                const AssetImage("assets/images/no-image.jpg"),
                             fit: BoxFit.cover,
                             width: 150,
-                            image: actores[index % actores.length]
+                            image: actores[index]
                                 .getActorImage()),
                       ),
                     ),
                   ),
                 ),
-                Text(actores[index % actores.length].name),
-                Text(actores[index % actores.length].originalName)
+                Text(actores[index].name),
+                Text(actores[index].originalName)
               ],
             );
           }),

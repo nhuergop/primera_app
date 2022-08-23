@@ -9,6 +9,7 @@ class actorListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /* actorListView recibe la data del actor y la ubica en los campos de la ListView como children. */
     return Scaffold(
         appBar: AppBar(
           title: Text(actorData.name),

@@ -42,6 +42,16 @@ class PeliculaDetalle extends StatelessWidget {
         ]));
   }
 
+/* Empiezo en pelicula_detalle.dart.
+  El FutureBuilder se construye cuando recibe el resultado de un Future.
+  Necesita dos propiedades: future y builder.
+  future recibe la llamada de la función asíncrona que devuelve un Future, en este caso, actorProvider.getActores().
+  builder recibe una función que toma dos parámetros: context y snapshot.
+  snapshot es un AsyncSnapshot.
+  AsyncSnapshot, según la doc, es una representación inmutable de la interacción más reciente con una computación asíncrona.
+  En este caso, AsyncSnapshot representa una lista de objetos Cast.
+  El FutureBuilder returna un CastSwiper, que recibe la lista de objetos Cast, si la propiedad de hasData de snapshot es true.
+  Si es false, retorna el progress indicator. */
   Widget _swiperCast(BuildContext context) {
     return FutureBuilder(
       future: actorProvider.getActores(pelicula.id),
